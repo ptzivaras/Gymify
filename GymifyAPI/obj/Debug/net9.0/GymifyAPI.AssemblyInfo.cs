@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GymifyAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c60312a8f577422ddd9de594d42612a9b302202e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b551d77daca4206e3b25646d2fe9ad76191ea25")]
 [assembly: System.Reflection.AssemblyProductAttribute("GymifyAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GymifyAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

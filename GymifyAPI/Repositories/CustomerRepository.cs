@@ -8,6 +8,12 @@ namespace GymifyAPI.Repositories;
 public class CustomerRepository : ICustomerRepository
 {
     private readonly ApplicationDbContext _context;
+    public async Task<IEnumerable<Customer>> GetByEmailAsync(string email)
+    {
+        return await _context.Customers
+            .FromSqlRaw("EXEC GetCustomersByEmail @p0", email)
+            .ToListAsync();
+    }
 
     public CustomerRepository(ApplicationDbContext context)
     {
