@@ -1,32 +1,52 @@
 using GymifyAPI.Data;
+using GymifyAPI.Middleware;
 using GymifyAPI.Repositories;
 using GymifyAPI.Repositories.Interfaces;
 using GymifyAPI.Services;
 using GymifyAPI.Services.Interfaces;
+using GymifyAPI.Validators;
 using Microsoft.EntityFrameworkCore;
-using GymifyAPI.Middleware;
+using FluentValidation.AspNetCore;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-//DbContext
+// 1) Controllers + FluentValidation
+builder.Services
+    .AddControllers()
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<CreateCustomerDtoValidator>();
+        fv.DisableDataAnnotationsValidation = true;
+    });
+
+// 2) DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//Repositories & Services
+// 3) Repositories & Services
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
-//ontrollers, Swagger
-builder.Services.AddControllers();
+// 4) Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 
-//Build το app 
 var app = builder.Build();
 
-//Middleware pipeline
+// 5) Middleware pipeline
 app.UseHttpsRedirection();
 app.UseGlobalExceptionHandling();
+
 app.UseAuthorization();
+
+// 6) Swagger UI (μόνο σε Development)
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.MapControllers();
 
 app.Run();
