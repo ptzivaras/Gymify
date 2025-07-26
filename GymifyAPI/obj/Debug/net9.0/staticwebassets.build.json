@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "GSgF15h9kWui71Rx+LckmQ/mkcJqbG6YVzdWpEwi97M=",
+  "Source": "GymifyAPI",
+  "BasePath": "_content/GymifyAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

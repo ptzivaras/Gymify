@@ -1,3 +1,9 @@
+using GymifyAPI.Data;
+using GymifyAPI.Repositories;
+using GymifyAPI.Services;
+using Microsoft.EntityFrameworkCore;
+using GymifyAPI.Repositories.Interfaces;
+using GymifyAPI.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+// Add DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register Repositories & Services
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
