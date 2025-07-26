@@ -4,7 +4,7 @@ using GymifyAPI.Repositories.Interfaces;
 using GymifyAPI.Services;
 using GymifyAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-
+using GymifyAPI.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 //DbContext
@@ -25,6 +25,7 @@ var app = builder.Build();
 
 //Middleware pipeline
 app.UseHttpsRedirection();
+app.UseGlobalExceptionHandling();
 app.UseAuthorization();
 app.MapControllers();
 
